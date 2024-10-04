@@ -9,31 +9,31 @@ public class SteepestDescent {
     }
 
     public static void steepestDescent(Double[] initValue, double acceptedTolerance) {
+        double k = 1.0, a_k = 0.0;
         Double[] x = initValue;
-
-        
-
-        System.out.println( "Norm: " + normOf(gradient(f_x(x[0],x[1]), f_y(x[0],x[1]))) );
-        System.out.println( "Gradient Vector: <" + gradient(f_x(x[0],x[1]), f_y(x[0],x[1]))[0] + ", " + gradient(f_x(x[0],x[1]), f_y(x[0],x[1]))[1] + ">" );
-    
-
-        int k = 1;
-        double a_k = 0.0;
         double[] gradient = new double[2];
+
+        System.out.println("k \t x_k \t <Fx, Fy> \t ||<Fx, Fy>||\n");
         
         while ( (normOf(gradient(f_x(x[0],x[1]), f_y(x[0],x[1]))) > acceptedTolerance) && (k < 1000)) {
-
+            
             /* Choose a_k > 0 (stepsize) */
             a_k = 1/k;
 
             /* Calculate <Fx(x_k), Fy(x_k)> */
             gradient = gradient(f_x(x[0],x[1]), f_y(x[0],x[1]));
 
+            System.out.print(Math.round(k) + "\t");
+            System.out.print("(" + ((double) Math.round( x[0] * 100 ) / 100) + ", " + ((double) Math.round( x[1] * 100 ) / 100) + ")\t");
+            System.out.print("<" + ((double) Math.round(gradient[0] * 100) / 100) + ", " + ((double) Math.round(gradient[1] * 100) / 100) + ">\t");
+            System.out.println(normOf(gradient) + "\n");
+
             /* Set x_k = x_k - a_k * <Fx(x_k), Fy(x_k)> */
             x[0] = x[0] - a_k * gradient[0];
             x[1] = x[1] - a_k * gradient[1];
 
             k++;
+
         }
 
     }
@@ -71,7 +71,7 @@ public class SteepestDescent {
 
     /* f(x,y) */
     public static double function(double x, double y) {
-        int whichFunction = 1;
+        int whichFunction = 2;
         switch (whichFunction) {
             case 1:
                 /* i)   f(x,y) = 16x² + 4y² + 2x - 4y - 4 */
@@ -83,7 +83,7 @@ public class SteepestDescent {
                 /* iii) f(x,y) = sqrt(x² - 4x + y² - 6y + 13) + 4 */
                 return Math.sqrt(Math.pow(x, 2) - 4*x + Math.pow(y, 2) - 6*y + 13) + 4;
             case 4:
-                /* iv)  f(x,y) = (1 - x)² + 400(y-x²)² */
+                /* iv)  f(x,y) = (1 - x)² + 400(y-x²)² Rosenbrock's Function*/
                 return Math.pow(1 - x, 2) + 400*Math.pow(y - Math.pow(x, 2), 2);  
             default:
                 return 0.0;
