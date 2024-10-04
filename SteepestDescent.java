@@ -1,30 +1,40 @@
-import java.util.Stack;
-
 public class SteepestDescent {
+    int whichFunction = 1;
 
     public static void main(String[] args) {
-        double[] initValue = new double[2];
-        initValue[0] = 1.15;
-        initValue[1] = 1.15;
-        System.out.println("Norm: " + normOf(gradient(f_x(initValue[0], initValue[1]), f_y(initValue[0], initValue[1]))));
-        System.out.println("Gradient Vector: <" + gradient(f_x(initValue[0], initValue[1]), f_y(initValue[0], initValue[1]))[0] + ", " + gradient(f_x(initValue[0], initValue[1]), f_y(initValue[0], initValue[1]))[1] + ">" );
+        Double[] initValue = {1.15, 1.15};
+        double acceptedTolerance = Math.pow(10, -9);
+
+        steepestDescent(initValue, acceptedTolerance);
     }
 
-    public void steepestDescent(double[] initValue, int acceptedTolerance) {
-        Stack<Double[]> x = new Stack<>();
-        //x.push( [1.15, 1.15] );
+    public static void steepestDescent(Double[] initValue, double acceptedTolerance) {
+        Double[] x = initValue;
 
-        int k = 0;
-        /*while ( normOf( gradient( x.peek() ) ) > acceptedTolerance ) {
-            x.push(x.peek() - chooseStepSize(i) * gradient( x.peek() ) );
-            i++;
-        }*/
+        
 
-    }
+        System.out.println( "Norm: " + normOf(gradient(f_x(x[0],x[1]), f_y(x[0],x[1]))) );
+        System.out.println( "Gradient Vector: <" + gradient(f_x(x[0],x[1]), f_y(x[0],x[1]))[0] + ", " + gradient(f_x(x[0],x[1]), f_y(x[0],x[1]))[1] + ">" );
+    
 
-    public static double chooseStepSize(int i) {
-        return 0.0d;
+        int k = 1;
+        double a_k = 0.0;
+        double[] gradient = new double[2];
+        
+        while ( (normOf(gradient(f_x(x[0],x[1]), f_y(x[0],x[1]))) > acceptedTolerance) && (k < 1000)) {
 
+            /* Choose a_k > 0 (stepsize) */
+            a_k = 1/k;
+
+            /* Calculate <Fx(x_k), Fy(x_k)> */
+            gradient = gradient(f_x(x[0],x[1]), f_y(x[0],x[1]));
+
+            /* Set x_k = x_k - a_k * <Fx(x_k), Fy(x_k)> */
+            x[0] = x[0] - a_k * gradient[0];
+            x[1] = x[1] - a_k * gradient[1];
+
+            k++;
+        }
 
     }
 
@@ -39,9 +49,7 @@ public class SteepestDescent {
 
     /* <Fx,Fy> */
     public static double[] gradient(double f_x, double f_y) {
-        double[] vector = new double[2];
-        vector[0] = f_x;
-        vector[1] = f_y;
+        double[] vector = {f_x, f_y};
         return vector;
     }
 
