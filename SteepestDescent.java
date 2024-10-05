@@ -29,9 +29,11 @@ public class SteepestDescent {
             gradient = gradient(f_x(x[0],x[1], functionNo), f_y(x[0],x[1], functionNo));
 
             System.out.print(Math.round(k) + "\t");
-            System.out.print("(" + String.format("%.2E", x[0]) + ", " + String.format("%.2E", x[1]) + ")\t");
-            System.out.print("<" + String.format("%.2E", gradient[0]) + ", " + String.format("%.2E", gradient[0]) + ">\t");
-            System.out.println( String.format("%.2E", normOf(gradient)) + "\n");
+            System.out.print("(" + String.format("%.2E", ((double) Math.round( x[0] * 100 ) / 100)) + ", " 
+                                + String.format("%.2E", ((double) Math.round( x[1] * 100 ) / 100)) + ")\t");
+            System.out.print("<" + String.format("%.2E", ((double) Math.round(gradient[0] * 100) / 100)) + ", " 
+                                + String.format("%.2E", ((double) Math.round(gradient[1] * 100) / 100)) + ">\t");
+            System.out.println( String.format("%.2E", ((double) Math.round(normOf(gradient) * 100) / 100)) + "\n");
 
             /* Set x_k = x_k - a_k * <Fx(x_k), Fy(x_k)> */
             x[0] = x[0] - a_k * gradient[0];
@@ -44,9 +46,11 @@ public class SteepestDescent {
             /* Printing k + 1 */
             gradient = gradient(f_x(x[0],x[1], functionNo), f_y(x[0],x[1], functionNo));
             System.out.print(Math.round(k) + "\t");
-            System.out.print("(" + String.format("%.2E", x[0]) + ", " + String.format("%.2E", x[1]) + ")\t");
-            System.out.print("<" + String.format("%.2E", gradient[0]) + ", " + String.format("%.2E", gradient[0]) + ">\t");
-            System.out.println( String.format("%.2E", normOf(gradient)) + "\n");
+            System.out.print("(" + String.format("%.2E", ((double) Math.round( x[0] * 100 ) / 100)) + ", " 
+                                + String.format("%.2E", ((double) Math.round( x[1] * 100 ) / 100)) + ")\t");
+            System.out.print("<" + String.format("%.2E", ((double) Math.round(gradient[0] * 100) / 100)) + ", " 
+                                + String.format("%.2E", ((double) Math.round(gradient[1] * 100) / 100)) + ">\t");
+            System.out.println( String.format("%.2E", ((double) Math.round(normOf(gradient) * 100) / 100)) + "\n");
 
     }
 
