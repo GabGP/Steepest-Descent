@@ -18,7 +18,7 @@ public class SteepestDescent {
         Double[] x = initValue;
         double[] gradient = new double[2];
 
-        System.out.println("k \t x_k \t\t <Fx, Fy> \t ||<Fx, Fy>||\n");
+        System.out.println("k\tx_k\t\t\t<Fx, Fy>\t\t||<Fx, Fy>||\n");
         
         while ( (normOf(gradient(f_x(x[0],x[1], functionNo), f_y(x[0],x[1], functionNo))) > acceptedTolerance) && (k < 1000)) {
             
@@ -29,9 +29,9 @@ public class SteepestDescent {
             gradient = gradient(f_x(x[0],x[1], functionNo), f_y(x[0],x[1], functionNo));
 
             System.out.print(Math.round(k) + "\t");
-            System.out.print("(" + ((double) Math.round( x[0] * 100 ) / 100) + ", " + ((double) Math.round( x[1] * 100 ) / 100) + ")\t");
-            System.out.print("<" + ((double) Math.round(gradient[0] * 100) / 100) + ", " + ((double) Math.round(gradient[1] * 100) / 100) + ">\t");
-            System.out.println( Math.round(normOf(gradient) * 100) / 100 + "\n");
+            System.out.print("(" + String.format("%.2E", x[0]) + ", " + String.format("%.2E", x[1]) + ")\t");
+            System.out.print("<" + String.format("%.2E", gradient[0]) + ", " + String.format("%.2E", gradient[0]) + ">\t");
+            System.out.println( String.format("%.2E", normOf(gradient)) + "\n");
 
             /* Set x_k = x_k - a_k * <Fx(x_k), Fy(x_k)> */
             x[0] = x[0] - a_k * gradient[0];
@@ -44,9 +44,9 @@ public class SteepestDescent {
             /* Printing k + 1 */
             gradient = gradient(f_x(x[0],x[1], functionNo), f_y(x[0],x[1], functionNo));
             System.out.print(Math.round(k) + "\t");
-            System.out.print("(" + ((double) Math.round( x[0] * 100 ) / 100) + ", " + ((double) Math.round( x[1] * 100 ) / 100) + ")\t");
-            System.out.print("<" + ((double) Math.round(gradient[0] * 100) / 100) + ", " + ((double) Math.round(gradient[1] * 100) / 100) + ">\t");
-            System.out.println( Math.round(normOf(gradient) * 100) / 100 + "\n");
+            System.out.print("(" + String.format("%.2E", x[0]) + ", " + String.format("%.2E", x[1]) + ")\t");
+            System.out.print("<" + String.format("%.2E", gradient[0]) + ", " + String.format("%.2E", gradient[0]) + ">\t");
+            System.out.println( String.format("%.2E", normOf(gradient)) + "\n");
 
     }
 
@@ -180,7 +180,7 @@ public class SteepestDescent {
     /* Fx = lim (h->0) (f(x+h,y)-f(x,y))/h */
     public static double f_x(double x, double y, int whichFunction) {
         double h = Math.pow(10, -9);
-        double result = (function(x+h,y)-function(x,y))/h;
+        double result = (function(x+h,y, whichFunction)-function(x,y, whichFunction))/h;
 
         switch (whichFunction) {
             case 1:
@@ -200,7 +200,6 @@ public class SteepestDescent {
 
             case 4:
                 /* iv)  Fx = 2(800x³ - 800xy + x - 1) */
-                //TODO: Check
                 result = 2*(800*Math.pow(x, 3) - 800*x*y + x - 1);
                 break;  
 
@@ -216,7 +215,7 @@ public class SteepestDescent {
     /* Fy = lim (h->0) (f(x,y+h)-f(x,y))/h */
     public static double f_y(double x, double y, int whichFunction) {
         double h = Math.pow(10, -9);
-        double result = (function(x,y+h)-function(x,y))/h;
+        double result = (function(x,y+h, whichFunction)-function(x,y, whichFunction))/h;
 
         switch (whichFunction) {
             case 1:
@@ -235,9 +234,8 @@ public class SteepestDescent {
                 break;
 
             case 4:
-                /* iv)  Fy = 400*(y - x²)*/
-                //TODO: Check
-                result = 400*(y - Math.pow(x, 2));
+                /* iv)  Fy = 800*(y - x²)*/
+                result = 800*(y - Math.pow(x, 2));
                 break;
 
             default:
@@ -249,9 +247,11 @@ public class SteepestDescent {
         return (double) Math.round( result * 100 ) / 100;
     }
 
+    /* /*******************************************************************\ */
+    /*                              NOT IN USE                               */
+    
     /* f(x,y) */
-    public static double function(double x, double y) {
-        int whichFunction = 3;
+    public static double function(double x, double y, int whichFunction) {
         switch (whichFunction) {
             case 1:
                 /* i)   f(x,y) = 16x² + 4y² + 2x - 4y - 4 */
