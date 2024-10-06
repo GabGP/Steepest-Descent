@@ -18,9 +18,10 @@ public class SteepestDescent {
         Double[] x = initValue;
         double[] gradient = new double[2];
 
-        /* if you wish, you can change the iteration limit. default = 10³ (1000) */
+        /* if you wish, you can change the iteration limit. */
         /* beware that changing it, could increase the time it takes to get an answer. */
         /* with a bigger number the program might get stuck and a fast computer might be required. */
+        /* default: 10³ (1000)  */
         int interationLimit = (int) Math.pow(10, 3);
 
         System.out.println("k\tx_k\t\t\t<Fx, Fy>\t\t||<Fx, Fy>||\n");
@@ -31,6 +32,7 @@ public class SteepestDescent {
             /* small stepsize = it takes longer to converge */
             /* big stepsize = it takes less time to converge */
             /* depending on the chosen stepsize, it can overshoot the desired x_k and diverge! */
+            /* default: a_k = stepSize(a_kType, k) */
             a_k = stepSize(a_kType, k);
 
             /* Calculate <Fx(x_k), Fy(x_k)> */
