@@ -101,10 +101,10 @@ public class SteepestDescent {
 
     static int chooseStepSize(Scanner sc) {
 
-        System.out.println("Choose the stepsize a_k:");
-        System.out.println("\t1) constant a_k = 1");
-        System.out.println("\t2) constant a_k = 0.1");
-        System.out.println("\t3) constant a_k = 0.01");
+        System.out.println("Choose the stepsize (a_k):");
+        System.out.println("\t1) constant a = 1");
+        System.out.println("\t2) constant a = 0.1");
+        System.out.println("\t3) constant a = 0.01");
         System.out.println("\t4) variable a_k = 1/k");
         System.out.print("\nEnter 1, 2, 3 or 4: ");
 
